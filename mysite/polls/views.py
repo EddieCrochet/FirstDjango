@@ -10,12 +10,11 @@ def index(request):
 	latest_question_list = Question.objects.order_by('-pub_date')[:5]
 	#before the template, and then we just returned output in the httpResponse
 	#output = ', '.join([q.question_text for q in latest_question_list])
-	template = loader.get_template('polls/index.html')
-	context = {
-		'latest_question_list': latest_question_list,
-	}
-	return HttpResponse(template.render(context, request))
-	#commented lines are what I had before
+	##template = loader.get_template('polls/index.html')
+	##if we didn't use the render() method we would still need above line and impott template
+	context = {'latest_question_list': latest_question_list }
+	return render(request, 'polls/index.html', context)
+	#commented lines are what I had before we imported the template index.html
 	#return HttpResponse(output)
 
 def detail(request, question_id):
