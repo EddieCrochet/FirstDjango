@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 #from django.template import loader
 #only needed this to import the template
@@ -21,10 +21,14 @@ def index(request):
 def detail(request, question_id):
 	#just a simple one line return below
 	#return HttpResponse("You're looking at question %s." % question_id)
-	try:
-		question = Qustion.objects.get(pk=question_id)
-	except Question.DoesNotExist:
-		raise Http404("Question does not exist!")
+	#################3
+	#try:
+		#question = Question.objects.get(pk=question_id)
+	#except Question.DoesNotExist:
+		#raise Http404("Question does not exist!")
+	#return render(request, 'polls/detail.html', {'question': question})
+	######## above code was the first way we achieved this same thing
+	question = get_object_or_404(Question, pk=question_id)
 	return render(request, 'polls/detail.html', {'question': question})
 
 def results(request, question_id):
